@@ -1,0 +1,7 @@
+CURL Agregar nueva factura
+
+curl -i -X POST -HContent-Type:application/json http://192.168.0.14:8080/api/factura/nueva -d '{"idFactura":4,"fecha":"10-10-10-10-10","nombre":"Alejando Martinez","nitFacturador":6574135432464,"nitAdquiriente":46513213554132,"descripcionMercancia":"Computadores Lenovo","unidades":4,"impuesto":500000,"valorUnitario":1000000,"valorTotal":4500000}'
+
+CURL ELIMINAR Y GET FACTURA
+
+curl -i -X DELETE -HContent-Type:text/plain http://192.168.0.14:8080/api/factura/getAndDelete -d '4'
