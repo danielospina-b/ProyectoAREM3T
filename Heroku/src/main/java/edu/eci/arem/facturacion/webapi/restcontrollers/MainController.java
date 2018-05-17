@@ -3,14 +3,12 @@ package edu.eci.arem.facturacion.webapi.restcontrollers;
 import edu.eci.arem.facturacion.webapi.model.Factura;
 import edu.eci.arem.facturacion.webapi.services.FacturacionServices;
 import edu.eci.arem.facturacion.webapi.services.FacturacionServicesException;
-import java.util.ArrayList;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,6 +62,17 @@ public class MainController {
             return new ResponseEntity<>(factura, HttpStatus.OK);
         } catch (FacturacionServicesException ex) {
             return new ResponseEntity<>("Error DELETE get and delete factura\n" + ex.getLocalizedMessage() + "\n", HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/factura/{idFactura}", produces = "application/json")
+    public ResponseEntity<?> getFacturaPorId(@PathVariable String idFactura) {
+        try {
+            Integer id = Integer.parseInt(idFactura);
+            Factura factura = facturacionServices.getFacturaPorId(id);
+            return new ResponseEntity<>(factura, HttpStatus.OK);
+        } catch (FacturacionServicesException ex) {
+            return new ResponseEntity<>("Error GET Factura por id\n" + ex.getLocalizedMessage() + "\n", HttpStatus.BAD_REQUEST);
         }
     }
     

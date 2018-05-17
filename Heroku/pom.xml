@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>edu.eci.pdsw.examples</groupId>
-	<artifactId>restapidemo</artifactId>
+	<groupId>edu.eci.arem.facturacion</groupId>
+	<artifactId>webapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>RESTAURANT_API</name>
-	<description>Demo project for Spring Boot</description>
+	<name>ProyectoFinal_Heroku</name>
+	<description>Proyecto Final Curso AREM</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -39,6 +39,10 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-security</artifactId>
+                </dependency>
 	</dependencies>
 
 	<build>

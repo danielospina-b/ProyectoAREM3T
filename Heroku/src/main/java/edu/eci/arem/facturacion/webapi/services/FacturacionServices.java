@@ -15,4 +15,5 @@ public interface FacturacionServices {
     
     Factura getAndDeleteFactura(Integer idFactura) throws FacturacionServicesException;
     
+    Factura getFacturaPorId(Integer idFactura) throws FacturacionServicesException;
 }

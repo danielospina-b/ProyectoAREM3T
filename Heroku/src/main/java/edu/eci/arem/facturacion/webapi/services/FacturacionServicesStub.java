@@ -48,10 +48,22 @@ public class FacturacionServicesStub implements FacturacionServices {
             throw new FacturacionServicesException("Factura ID: " + idFactura + " no Existe");
         }
     }
-
+    
+    @Override
+    public Factura getFacturaPorId(Integer idFactura) throws FacturacionServicesException {
+        Factura factura;
+        if (facturas.containsKey(idFactura)) {
+            factura = facturas.get(idFactura);
+            return factura;
+        } else {
+            throw new FacturacionServicesException("Factura ID: " + idFactura + " no Existe");
+        }
+    }
+    
     private void addFacturasBase() {
         facturas.put(1, new Factura(1, "05-05-18-18-00", "Danilo Jimenez", "123357421576", "10568413541", "Celulares Marca LG", 5, 200000, 500000, 2700000));
         facturas.put(2, new Factura(2, "06-03-18-12-30", "Camila Ramirez", "984516843546", "32485496519", "Hierro 95% Puro ..", 9, 445000, 400000, 2982000));
         facturas.put(3, new Factura(3, "12-11-17-15-10", "Juana Villalbe", "897413246674", "87413574654", "ServicioReparacion", 1, 900000, 100000, 1000000));
     }
+    
 }
