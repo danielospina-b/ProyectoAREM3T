@@ -76,4 +76,9 @@ public class MainController {
         }
     }
     
+    @RequestMapping(method = RequestMethod.GET, value = "/login", consumes = "text/plain", produces = "text/plain")
+    public ResponseEntity<?> getLogin() {
+        return new ResponseEntity<>("Logged In", HttpStatus.OK);
+    }
+    
 }

@@ -15,14 +15,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     
-    @Autowired
-    private BasicAuthenticationPoint basicAuthenticationPoint;
-    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable();
-            http.authorizeRequests().anyRequest().authenticated();
-            http.httpBasic().authenticationEntryPoint(basicAuthenticationPoint);
+        http.csrf().disable();
+        http.authorizeRequests().antMatchers("/*", "/css/*", "/js/*").permitAll()
+        .anyRequest().authenticated();
     }
     
     @Autowired
