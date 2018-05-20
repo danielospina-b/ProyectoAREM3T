@@ -2,26 +2,37 @@ package edu.eci.arem.facturacion.Parser;
 
 import java.io.*;
 import java.nio.charset.Charset;
+
 import org.json.JSONException;//http://bit.ly/12O4D2w
 
-public class Parser {
+/**
+ * @author Sebastián Camilo Reyes
+ */
+public class Parser extends Thread {
 
     private static String path = "./procesados";
 
-    public static void main(String[] args) throws IOException, JSONException {
-        File[] files = selectFiles();
-        for(File f: files){
-            String json = readFile(path + "/json/" + f.getName());
-            String xml = convert(json, "root");
-            writeFile(path + "/xml/" + f.getName().substring(0,f.getName().length() - 5) + ".xml", xml);
+    public void run() throws  JSONException {
+        System.out.println("entro");
+        while(true) {
+            try {
+                File[] files = selectFiles();
+                for (File f : files) {
+                    String json = readFile(path + "/json/" + f.getName());
+                    String xml = convert(json, "root");
+                    writeFile(path + "/xml/" + f.getName().substring(0, f.getName().length() - 5) + ".xml", xml);
+                }
+                sleep(15000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     public static String convert(String json, String root) throws JSONException {
         org.json.JSONObject jsonFileObject = new org.json.JSONObject(json);
-        String xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-15\"?>\n<"+root+">"
-                + org.json.XML.toString(jsonFileObject) + "</"+root+">";
+        String xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-15\"?>\n<" + root + ">"
+                + org.json.XML.toString(jsonFileObject) + "</" + root + ">";
         return xml;
     }
 
