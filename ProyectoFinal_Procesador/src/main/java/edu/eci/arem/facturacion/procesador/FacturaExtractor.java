@@ -65,7 +65,7 @@ public class FacturaExtractor extends Thread {
                             //System.out.println(line2);
                             output2=output2+line2;
                         }
-                        PrintWriter writer = new PrintWriter("procesados/factura"+facturasID[i]+".json");                
+                        PrintWriter writer = new PrintWriter("procesados/json/factura"+facturasID[i]+".json");                
                         writer.println(output2);
                         writer.close();
                     }
