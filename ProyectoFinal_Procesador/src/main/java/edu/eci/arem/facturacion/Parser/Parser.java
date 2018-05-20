@@ -25,7 +25,6 @@ public class Parser extends Thread {
                 String xml = convert(json, "root");
                 writeFile(path + "/xml/" + f.getName().substring(0, f.getName().length() - 5) + ".xml", xml);
             }
-            sleep(15000);
         } catch (Exception e) {
             e.printStackTrace();
         }
