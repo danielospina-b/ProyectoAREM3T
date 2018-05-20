@@ -10,33 +10,36 @@ import org.json.JSONException;//http://bit.ly/12O4D2w
  */
 public class Parser extends Thread {
 
-    private static String path = "./procesados";
-
-    public void run() throws  JSONException {
-        System.out.println("entro");
-        while(true) {
-            try {
-                File[] files = selectFiles();
-                for (File f : files) {
-                    String json = readFile(path + "/json/" + f.getName());
-                    String xml = convert(json, "root");
-                    writeFile(path + "/xml/" + f.getName().substring(0, f.getName().length() - 5) + ".xml", xml);
-                }
-                sleep(15000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    private String path;
+    
+    public Parser(){
+        this.path = "./procesados";
     }
 
-    public static String convert(String json, String root) throws JSONException {
+    public void procesar() throws  JSONException {
+        
+        try {
+            File[] files = selectFiles();
+            for (File f : files) {
+                String json = readFile(path + "/json/" + f.getName());
+                String xml = convert(json, "root");
+                writeFile(path + "/xml/" + f.getName().substring(0, f.getName().length() - 5) + ".xml", xml);
+            }
+            sleep(15000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+
+    public String convert(String json, String root) throws JSONException {
         org.json.JSONObject jsonFileObject = new org.json.JSONObject(json);
         String xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-15\"?>\n<" + root + ">"
                 + org.json.XML.toString(jsonFileObject) + "</" + root + ">";
         return xml;
     }
 
-    public static String readFile(String filepath) throws IOException {
+    public String readFile(String filepath) throws IOException {
 
         StringBuilder sb = new StringBuilder();
         InputStream in = new FileInputStream(filepath);
@@ -56,7 +59,7 @@ public class Parser extends Thread {
         return sb.toString();
     }
 
-    public static void writeFile(String filepath, String output) throws IOException {
+    public void writeFile(String filepath, String output) throws IOException {
         FileWriter ofstream = new FileWriter(filepath);
         try (BufferedWriter out = new BufferedWriter(ofstream)) {
             out.write(output);
