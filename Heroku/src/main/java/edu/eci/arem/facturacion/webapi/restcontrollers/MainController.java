@@ -65,6 +65,7 @@ public class MainController {
         }
     }
     
+    // GET una factura por su id
     @RequestMapping(method = RequestMethod.GET, value = "/factura/{idFactura}", produces = "application/json")
     public ResponseEntity<?> getFacturaPorId(@PathVariable String idFactura) {
         try {
@@ -76,7 +77,8 @@ public class MainController {
         }
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/login", consumes = "text/plain", produces = "text/plain")
+    // Method for login purposes
+    @RequestMapping(method = RequestMethod.GET, value = "/login", produces = "text/plain")
     public ResponseEntity<?> getLogin() {
         return new ResponseEntity<>("Logged In", HttpStatus.OK);
     }
