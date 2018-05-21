@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 /**
  *
@@ -16,12 +15,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 @EnableWebSecurity
 public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     
-    private BasicAuthenticationEntryPoint baep;
+    @Autowired
+    private MyBasicAuthenticationEntryPoint baep;
 
-    public ApplicationConfig() {
-        this.baep = new BasicAuthenticationEntryPoint();
-        baep.setRealmName("Default");
-    }
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {

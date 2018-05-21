@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Formulario Factura</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="css/form.css" >
+    </head>
+    <body >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2>Nueva Factura</h2> Complete este formulario para reportar una factura. 
+                    <p> Todos los campos son obligatorios. </p>
+                    <form role="form" method="post" id="reused_form" >
+                        <div class="form-group">
+                            <label for="idFactura"> ID Factura:</label>
+                            <input type="number" class="form-control" id="idFactura" name="idFactura" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha"> Fecha:</label>
+                            <input type="datetime-local" class="form-control" id="fecha" name="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre"> Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="nitFacturador"> NIT Facturador:</label>
+                            <input type="text" class="form-control" id="nitFacturador" name="nitFacturador" required maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="nitAdquiriente"> NIT Adquiriente:</label>
+                            <input type="text" class="form-control" id="nitAdquiriente" name="nitAdquiriente" required maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcionMercancia"> Descripcion Mercancia:</label>
+                            <input type="text" class="form-control" id="descripcionMercancia" name="descripcionMercancia" required maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="unidades"> Unidades:</label>
+                            <input type="number" class="form-control" id="unidades" name="unidades" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="impuestos"> Impuestos:</label>
+                            <input type="number" class="form-control" id="impuestos" name="impuestos" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="valorUnitario"> Valor Unitario:</label>
+                            <input type="number" class="form-control" id="valorUnitario" name="valorUnitario" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="valorTotal"> Valor Total:</label>
+                            <input type="number" class="form-control" id="valorTotal" name="valorTotal" required>
+                        </div>
+                        <button type="button" class="btn btn-lg btn-success pull-right" onclick="MainModule.reportarFactura()">Reportar Factura &rarr;</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <script src="../js/axios.min.js"></script>
+    <script src="../js/main.js"></script>
+    </body>
+</html>
