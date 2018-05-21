@@ -5,24 +5,22 @@ import java.nio.charset.Charset;
 
 import org.json.JSONException;//http://bit.ly/12O4D2w
 
-/**
- * @author Sebastián Camilo Reyes
- */
+
 public class Parser extends Thread {
 
-    private String path;
+    private final String path;
     
-    public Parser(){
+    public Parser() {
         this.path = "./procesados";
     }
 
-    public void procesar() throws  JSONException {
+    public void procesar() throws JSONException {
         
         try {
             File[] files = selectFiles();
             for (File f : files) {
                 String json = readFile(path + "/json/" + f.getName());
-                String xml = convert(json, "root");
+                String xml = convert(json, "factura");
                 writeFile(path + "/xml/" + f.getName().substring(0, f.getName().length() - 5) + ".xml", xml);
             }
         } catch (Exception e) {

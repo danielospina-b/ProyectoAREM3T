@@ -5,15 +5,9 @@
  */
 package edu.eci.arem.facturacion.procesador;
 
-import edu.eci.arem.facturacion.Parser.Parser;
-
-/**
- * @author Juan Camilo Mantilla
- */
 public class ProcesadorInit {
     public static void main(String[] args) {
         FacturaExtractor extractor = new FacturaExtractor();
-        Parser parser = new Parser();
         extractor.start();
     }
 }

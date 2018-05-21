@@ -11,17 +11,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
 
-/**
- * @author Juan Camilo Mantilla
- */
+
 public class FacturaExtractor extends Thread {
+
+    private final String urlPath = "http://localhost:8080/api/factura";
+    private final String usrPass = "admin:1234";
+
+
     @Override
     public void start() {
         while (true) {
             try {
                 //Se revisa nuevasFacturas para determinar si hay nuevas por procesar
-                URL url = new URL("http://localhost:8080/api/factura/nuevasFacturas");
-                String encoding = Base64.getEncoder().encodeToString("admin:1234".getBytes("UTF-8"));
+                URL url = new URL(urlPath + "/nuevasFacturas");
+                String encoding = Base64.getEncoder().encodeToString(usrPass.getBytes("UTF-8"));
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
@@ -32,7 +35,6 @@ public class FacturaExtractor extends Thread {
                 String line;
                 String output = new String("");
                 while ((line = in.readLine()) != null) {
-                    //System.out.println(line);
                     output = output + line;
                 }
 
@@ -41,8 +43,8 @@ public class FacturaExtractor extends Thread {
                     output = output.replace("]", "");
                     String[] facturasID = output.split(",");
                     for (int i = 0; i < facturasID.length; i++) {
-                        URL url2 = new URL("http://localhost:8080/api/factura/getAndDelete");
-                        String encoding2 = Base64.getEncoder().encodeToString("admin:1234".getBytes("UTF-8"));
+                        URL url2 = new URL(urlPath + "/getAndDelete");
+                        String encoding2 = Base64.getEncoder().encodeToString(usrPass.getBytes("UTF-8"));
 
                         HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
                         connection2.setRequestMethod("DELETE");
@@ -69,8 +71,12 @@ public class FacturaExtractor extends Thread {
                 Parser parser = new Parser();
                 parser.procesar();
                 }
-                this.sleep(10000);
             } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                this.sleep(10000);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
