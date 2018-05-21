@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.arem.facturacion.procesador;
 
 import edu.eci.arem.facturacion.Parser.Parser;
 import java.io.*;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
-
 
 public class FacturaExtractor extends Thread {
 
@@ -33,7 +28,7 @@ public class FacturaExtractor extends Thread {
                 InputStream content = (InputStream) connection.getInputStream();
                 BufferedReader in = new BufferedReader(new InputStreamReader(content));
                 String line;
-                String output = new String("");
+                String output = "";
                 while ((line = in.readLine()) != null) {
                     output = output + line;
                 }
@@ -59,7 +54,7 @@ public class FacturaExtractor extends Thread {
                         BufferedReader in2 =
                                 new BufferedReader(new InputStreamReader(content2));
                         String line2;
-                        String output2 = new String("");
+                        String output2 = "";
                         while ((line2 = in2.readLine()) != null) {
                             //System.out.println(line2);
                             output2 = output2 + line2;
@@ -71,13 +66,17 @@ public class FacturaExtractor extends Thread {
                 Parser parser = new Parser();
                 parser.procesar();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (ConnectException ex) {
+                System.out.println("No se ha podido conectar al API... Reintentando en 10 segundos. " + ex.getLocalizedMessage());
+            } catch (FileNotFoundException ex) {
+                System.out.println("Error: Archivo no encontrado. - " + ex.getLocalizedMessage());
+            } catch (IOException ex) {
+                System.out.println("Error de IO - " + ex.getLocalizedMessage());
             }
             try {
-                this.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                FacturaExtractor.sleep(10000);
+            } catch (InterruptedException ex) {
+                System.out.println("FacturaExtractor error. - " + ex.getLocalizedMessage());
             }
         }
     }

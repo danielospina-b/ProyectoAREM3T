@@ -3,7 +3,7 @@ package edu.eci.arem.facturacion.Parser;
 import java.io.*;
 import java.nio.charset.Charset;
 
-import org.json.JSONException;//http://bit.ly/12O4D2w
+import org.json.JSONException;
 
 
 public class Parser extends Thread {
@@ -22,9 +22,10 @@ public class Parser extends Thread {
                 String json = readFile(path + "/json/" + f.getName());
                 String xml = convert(json, "factura");
                 writeFile(path + "/xml/" + f.getName().substring(0, f.getName().length() - 5) + ".xml", xml);
+                System.out.println("Nueva Factura: " + f.getName().substring(0, f.getName().length() - 5) + ".xml");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | JSONException ex) {
+            System.out.println("Error de IO/JSON" + ex.getLocalizedMessage());
         }
         
     }
